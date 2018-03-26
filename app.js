@@ -25,6 +25,11 @@ io.on('connection',function(socket){
     socket.on('disconnect',function(){
         console.log('Usuario desconectou');
     });
+
+    socket.on('enviarMsg',function(data){
+        socket.emit('msgParaCliente',{nome:data.nome,mensagem:data.mensagem});//emite pra vc msm
+        socket.broadcast.emit('msgParaCliente',{nome:data.nome,mensagem:data.mensagem});//emite para os outros
+    })
 });//esta escutando eventos de conecçao
 
 /**A função emit funciona juntamente com a funçao on

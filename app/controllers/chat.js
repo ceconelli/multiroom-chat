@@ -13,5 +13,5 @@ module.exports.iniciaChat = function(application,request,response){
     //application.get recupera a variavel passada como parametro, definida em app com o .set
     application.get('io').emit('msgParaCliente',{nome:dataForm.nome,mensagem:' acabou de entrar'});
 
-    response.render('chat');
+    response.render('chat',{dataForm:dataForm});
 }

@@ -103,16 +103,17 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="container">
 				<div class="panel-body campo-mensagem">
-					<form>
-						<div class="col-md-12">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Mensagem">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">></button>
-								</span>
-							</div>
+					
+					<div class="col-md-12">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
+							<input type="hidden" value="<%= dataForm.nome %>" id="nome">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button" id="enviar_mensagem">></button>
+							</span>
 						</div>
-					</form>
+					</div>
+					
 				</div>
 			</div>
 		</nav>		
@@ -122,6 +123,16 @@
 		<!--coloca o socket no lado do cliente tbm-->
 		<script>
 			var socket = io('http://localhost:8000');
+
+			$('#enviar_mensagem').click(function(){
+				socket.emit(
+					'enviarMsg',
+					{nome:$('#nome').val(),mensagem:$('#mensagem').val()}
+				);
+			});
+
+			
+
 			socket.on('msgParaCliente',function(data){
 				var html = '';
 				html += '<div class="dialogo">';
