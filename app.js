@@ -29,7 +29,13 @@ io.on('connection',function(socket){
     socket.on('enviarMsg',function(data){
         socket.emit('msgParaCliente',{nome:data.nome,mensagem:data.mensagem});//emite pra vc msm
         socket.broadcast.emit('msgParaCliente',{nome:data.nome,mensagem:data.mensagem});//emite para os outros
-    })
+        
+        if(parseInt(data.nome_atualizado_nos_clientes) == 0){
+            socket.emit('participantesParaCliente',{nome:data.nome});//emite pra vc msm
+            socket.broadcast.emit('participantesParaCliente',{nome:data.nome});//emite para os outros
+        };
+        
+    });
 });//esta escutando eventos de conecçao
 
 /**A função emit funciona juntamente com a funçao on
